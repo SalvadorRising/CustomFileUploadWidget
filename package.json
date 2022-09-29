@@ -1,0 +1,35 @@
+{
+  "name": "customfilewidget",
+  "widgetName": "CustomFileWidget",
+  "version": "1.0.0",
+  "description": "Custom widget to upload large files in chunks",
+  "copyright": "© Mendix Technology BV 2022. All rights reserved.",
+  "author": "Salvador",
+  "engines": {
+    "node": ">=16"
+  },
+  "license": "Apache-2.0",
+  "config": {
+    "widgetPath": "C:\\Users\\marko\\Documents\\Mendix\\ProjektRisingTest-main/widgets",
+    "projectPath": "C:\\Users\\marko\\Documents\\Mendix\\ProjektRisingTest-main/",
+    "mendixHost": "http://localhost:8080",
+    "developmentPort": 3000
+  },
+  "packagePath": "projektrising",
+  "scripts": {
+    "start": "pluggable-widgets-tools start:server",
+    "dev": "pluggable-widgets-tools start:web",
+    "build": "pluggable-widgets-tools build:web",
+    "lint": "pluggable-widgets-tools lint",
+    "lint:fix": "pluggable-widgets-tools lint:fix",
+    "prerelease": "npm run lint",
+    "release": "pluggable-widgets-tools release:web"
+  },
+  "devDependencies": {
+    "@mendix/pluggable-widgets-tools": "^9.0.0"
+  },
+  "dependencies": {
+    "@rollup/plugin-json": "^4.1.0",
+    "classnames": "^2.2.6"
+  }
+}

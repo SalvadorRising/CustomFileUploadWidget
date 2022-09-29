@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget id="projektrising.customfilewidget.CustomFileWidget" pluginWidget="true" needsEntityContext="true" offlineCapable="true"
+        supportedPlatform="Web"
+        xmlns="http://www.mendix.com/widget/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd">
+    <name>Custom File Widget</name>
+    <description>Custom widget to upload large files in chunks</description>
+    <icon/>
+    <properties>
+        <propertyGroup caption="General">
+            <property key="contextFileObject" type="file" required="true">
+                <caption>Context Object</caption>
+                <description>Object in which the file will be stored, must be specialisation of File</description>
+            </property>
+            <property key="identifierAttribute" type="attribute">
+                <caption>File Identifier Attribute</caption>
+                <description>The attribute used as the key to the file</description>
+                <attributeTypes>
+                    <attributeType name="String"/>
+                </attributeTypes>
+            </property>
+            <property key="fileTypeAttribute" type="attribute">
+                <caption>File Type Attribute</caption>
+                <description>The attribute used to capture the file type</description>
+                <attributeTypes>
+                    <attributeType name="String"/>
+                </attributeTypes>
+            </property>
+            <property key="contentAttribute" type="attribute">
+                <caption>File Content Attribute</caption>
+                <description>The attribute in which the file will be transported to the server via the microflow</description>
+                <attributeTypes>
+                    <attributeType name="String"/>
+                </attributeTypes>
+            </property>
+            <property key="uploadMicroflow" type="action" required="true">
+                <caption>onAccept Mf</caption>
+                <description>Microflow that will be called to upload the selected file. This microflow will use the entity defined in 'Data'.
+
+Note: This microflow is executed AFTER the file is uploaded.</description>
+            </property>
+        </propertyGroup>
+    </properties>
+</widget>
