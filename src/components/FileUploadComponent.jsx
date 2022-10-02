@@ -64,16 +64,17 @@ function getUInt8Chunk(file, start, end) {
 
 export function FileUploadComponent(props) {
 
+	const chunkSize = 9999999; // must be a multiple of 3 for succesful base64 conversion
+
     const [selectedFile, setSelectedFile] = useState();
 	const [isFilePicked, setIsFilePicked] = useState(false);
 
 	const [chunk, setChunk] = useState(1);
 	const [start, setStart] = useState(0);
-	const [end, setEnd] = useState(10000000);
+	const [end, setEnd] = useState(chunkSize);
 
 	const [uploadStarted, setUploadStarted] = useState(false);
-
-	const chunkSize = 10000000;
+	const [uploadFinished, setUploadFinished] = useState(false);
 
     const changeHandler = (event) => {
 		setSelectedFile(event.target.files[0]);
@@ -90,6 +91,7 @@ export function FileUploadComponent(props) {
 			if (UInt8Data.byteLength == 0) {
 				console.log("Finished Upload");
 				setUploadStarted(false);
+				setUploadFinished(true);
 				return;
 			}
 
@@ -118,6 +120,7 @@ export function FileUploadComponent(props) {
 		props.fileTypeAttribute.setValue(selectedFile.type); // set the file type attribute so we know what file this is when we download it
 
 		setUploadStarted(true);
+		setUploadFinished(false);
 		uploadPendingChunk();
 	};
 
@@ -129,7 +132,9 @@ export function FileUploadComponent(props) {
 					<p>Filename: {selectedFile.name}</p>
 					<p>Filetype: {selectedFile.type}</p>
 					<p>Size in bytes: {selectedFile.size}</p>
-					{uploadStarted ? (<p>Status: Uploading Chunk {chunk-1}</p>) : (<p></p>)}
+					{((!uploadStarted && !uploadFinished) ? (<p>Status: Ready for upload</p>) : (<p></p>))}
+					{((uploadStarted && chunk != 1) ? (<p>Status: Uploading Chunk {chunk-1}/{Math.ceil(selectedFile.size / chunkSize)}</p>) : (<p></p>))}
+					{((!uploadStarted && uploadFinished) ? (<p>Status: Upload complete</p>) : (<p></p>))}
 				</div>
 			) : (
 				<p>Select a file to show details</p>
